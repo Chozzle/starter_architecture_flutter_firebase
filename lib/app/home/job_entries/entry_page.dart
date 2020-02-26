@@ -45,7 +45,7 @@ class _EntryPageState extends State<EntryPage> {
     _endDate = DateTime(end.year, end.month, end.day);
     _endTime = TimeOfDay.fromDateTime(end);
 
-    _comment = widget.entry?.comment ?? '';
+    _comment = widget.entry?.athlete ?? '';
   }
 
   Entry _entryFromState() {
@@ -59,7 +59,7 @@ class _EntryPageState extends State<EntryPage> {
       jobId: widget.job.id,
       start: start,
       end: end,
-      comment: _comment,
+      athlete: _comment,
     );
   }
 
@@ -101,11 +101,8 @@ class _EntryPageState extends State<EntryPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               _buildStartDate(),
-              _buildEndDate(),
               SizedBox(height: 8.0),
-              _buildDuration(),
-              SizedBox(height: 8.0),
-              _buildComment(),
+              _buildAthleteInput(),
             ],
           ),
         ),
@@ -123,39 +120,13 @@ class _EntryPageState extends State<EntryPage> {
     );
   }
 
-  Widget _buildEndDate() {
-    return DateTimePicker(
-      labelText: 'End',
-      selectedDate: _endDate,
-      selectedTime: _endTime,
-      onSelectedDate: (date) => setState(() => _endDate = date),
-      onSelectedTime: (time) => setState(() => _endTime = time),
-    );
-  }
-
-  Widget _buildDuration() {
-    final currentEntry = _entryFromState();
-    final durationFormatted = Format.hours(currentEntry.durationInHours);
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: <Widget>[
-        Text(
-          'Duration: $durationFormatted',
-          style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500),
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-        ),
-      ],
-    );
-  }
-
-  Widget _buildComment() {
+  Widget _buildAthleteInput() {
     return TextField(
       keyboardType: TextInputType.text,
       maxLength: 50,
       controller: TextEditingController(text: _comment),
       decoration: InputDecoration(
-        labelText: 'Comment',
+        labelText: 'Athlete',
         labelStyle: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500),
       ),
       keyboardAppearance: Brightness.light,

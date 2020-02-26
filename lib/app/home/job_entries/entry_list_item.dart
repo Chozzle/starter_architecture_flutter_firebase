@@ -25,7 +25,7 @@ class EntryListItem extends StatelessWidget {
             Expanded(
               child: _buildContents(context),
             ),
-            Icon(Icons.chevron_right, color: Colors.grey),
+            Icon(Icons.edit, color: Colors.grey),
           ],
         ),
       ),
@@ -46,29 +46,19 @@ class EntryListItem extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Row(children: <Widget>[
-          Text(dayOfWeek, style: TextStyle(fontSize: 18.0, color: Colors.grey)),
-          SizedBox(width: 15.0),
-          Text(startDate, style: TextStyle(fontSize: 18.0)),
-          if (job.ratePerHour > 0.0) ...<Widget>[
-            Expanded(child: Container()),
+          Text(startTime, style: TextStyle(fontSize: 16.0)),
+          SizedBox(width: 16.0),
+
+          if (entry.athlete.isNotEmpty)
             Text(
-              payFormatted,
-              style: TextStyle(fontSize: 16.0, color: Colors.green[700]),
+              entry.athlete,
+              style: TextStyle(fontSize: 16.0),
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
             ),
-          ],
-        ]),
-        Row(children: <Widget>[
-          Text('$startTime - $endTime', style: TextStyle(fontSize: 16.0)),
           Expanded(child: Container()),
-          Text(durationFormatted, style: TextStyle(fontSize: 16.0)),
+
         ]),
-        if (entry.comment.isNotEmpty)
-          Text(
-            entry.comment,
-            style: TextStyle(fontSize: 12.0),
-            overflow: TextOverflow.ellipsis,
-            maxLines: 1,
-          ),
       ],
     );
   }
